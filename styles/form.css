@@ -1,0 +1,57 @@
+form {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 2vh;
+  width: 80vw;
+  padding: 1rem;
+
+  border-radius: 10px;
+  background: whitesmoke;
+}
+
+.form-group {
+  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+}
+
+
+button {
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+
+.buttons-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+.rdb-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.btn-guardar {
+  
+}
+
+
+.container-btn-delete-all{
+
+}
+
+
+
+
