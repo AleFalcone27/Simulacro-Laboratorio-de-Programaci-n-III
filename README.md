@@ -1,7 +1,9 @@
 ## Simulacro Laboratorio de Programacion III
 
 -*Alta* 👇
+
 -*Baja* ☝️ 
+
 -*Modificacion* ✊ 
 
 
