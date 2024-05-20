@@ -1,125 +1,241 @@
-import { Casa } from "./casa.js";
-import { leer, escribir, limpiar, jsonToObject, objectToJson } from "./local-storage-async.js";
+import { Producto } from "./auto.js";
+import { escribirStorage, leerStorage, objectToJson } from "./local-storage.js";
 import { mostrarSpinner, ocultarSpinner } from "./spinner.js";
 
-const KEY_STORAGE = "casas";
-const items = []; // array vacio
-const formulario = document.getElementById("form-item");
+const items = await leerStorage() || [];
 
-document.addEventListener("DOMContentLoaded", onInit); // importante no poner parentesis, es un callback
+const frm = document.getElementById("form-item");
+const btnGuardar = document.getElementById("btnGuardar");
+const btnEliminar = document.getElementById("btnEliminar");
+const btnEliminarTodo = document.getElementById("btnEliminarTodo");
+const btnModificar = document.getElementById("btnModificar");
 
-function onInit() {
-  loadItems();
+document.addEventListener("DOMContentLoaded", () => {
+  manejadorTabla();
+  btnGuardar.addEventListener("click", manejadorCargarRegistro);
+  btnEliminar.addEventListener('click', manejadorEliminarRegistro);
+  btnModificar.addEventListener("click", manejadorModificar);
+  btnEliminarTodo.addEventListener('click', manejadorEliminarTodo);
+  document.addEventListener("click", manejadorClick);
+});
 
-  escuchandoFormulario();
-  escuchandoBtnDeleteAll();
+
+function manejadorEliminarTodo() {
+  if (confirm("¿Desea ELIMINAR TODOS los productos?")) {
+    items.length = 0; 
+    try {
+      escribirStorage("Auto", objectToJson(items)); // Actualiza el almacenamiento
+      manejadorTabla(); 
+    } catch (error) {
+      console.error("Error al eliminar todos los productos:", error);
+    }
+    actualizarFormulario(); 
+    document.getElementsByName("id")[0].setAttribute("id",'0'); // Reseteamos el id del formulario
+  }
 }
 
-async function loadItems() {
-  mostrarSpinner();
-  let str = await leer(KEY_STORAGE);
-  ocultarSpinner();
 
-  const objetos = jsonToObject(str) || [];
-  
-  objetos.forEach(obj => {
-    const model = new Casa(
-        obj.id,
-        obj.titulo,
-        obj.precio
-    );
-  
-    items.push(model);
-  });
 
-  rellenarTabla();
+function manejadorEliminarRegistro() {
+  if (confirm("¿Desea ELIMINAR el producto seleccionado?")) {
+    const idSeleccionado = parseFloat(document.getElementsByName("id")[0].getAttribute("id"));
+
+    const itemsActualizado = items.filter(p => p.id !== idSeleccionado);
+
+    try {
+      escribirStorage("Auto", objectToJson(itemsActualizado));
+      items.length = 0;
+      itemsActualizado.forEach(item => items.push(item));
+      manejadorTabla();
+    } catch (error) {
+      console.error("Error al eliminar el producto:", error);
+    }
+  }
 }
 
-/**
- * Quiero que obtenga el elemento del DOM table
- * luego quiero agregarle las filas que sean necesarias
- * se agregaran dependiendo de la cantidad de items que poseo
- */
-function rellenarTabla() {
-    const tabla = document.getElementById("table-items");
-    let tbody = tabla.getElementsByTagName('tbody')[0];
-  
-    tbody.innerHTML = ''; // Me aseguro que esté vacio, hago referencia al agregar otro
 
-    const celdas = ["id", "titulo", "precio"];
 
-    items.forEach((item) => {
-        let nuevaFila = document.createElement("tr");
+function manejadorClick(e){
+  if(e.target.matches("td")){
+    const id = parseFloat(e.target.parentNode.dataset.id);
+    const AutoSeleccionado = items.find(p => p.id === id);
+    if (AutoSeleccionado) {
+      console.log("Auto Seleccionado:", AutoSeleccionado);
+    } else {
+      console.log("No se encontró ningún auto con el ID especificado.");
+    }
 
-        celdas.forEach((celda) => {
-            let nuevaCelda = document.createElement("td");
-            nuevaCelda.textContent = item[celda];
+    document.getElementsByName("id")[0].setAttribute("id",AutoSeleccionado.id);
+    document.getElementById("titulo").value = AutoSeleccionado.titulo;
+    document.getElementById("precio").value = AutoSeleccionado.precio ;
+    document.getElementById("descripcion").value = AutoSeleccionado.descripcion;
+    document.getElementById("puertas").value = AutoSeleccionado.puertas;
+    document.getElementById("kms").value = AutoSeleccionado.kms;
+    document.getElementById("potencia").value = AutoSeleccionado.potencia;
+    document.getElementById(AutoSeleccionado.tipo.toLowerCase()).checked = true;
 
-            nuevaFila.appendChild(nuevaCelda);
-        });
-
-        // Agregar la fila al tbody
-        tbody.appendChild(nuevaFila);
-    });
   }
 
-function escuchandoFormulario() {
-  formulario.addEventListener("submit", async (e) => {
-    // Luego del primer parcial, comenzaremos a enviar los datos a un externo
-    // evito el comportamiento que realiza por defecto
-    e.preventDefault();
+}
 
-    var fechaActual = new Date();
+function manejadorCargarRegistro(e) {
+  e.preventDefault()
 
-    const model = new Casa(
-      fechaActual.getTime(),
-      formulario.querySelector("#titulo").value,
-      formulario.querySelector("#precio").value
-    );
+  const titulo = document.getElementById("titulo").value;
+  const precio = document.getElementById("precio").value;
+  const descripcion = document.getElementById("descripcion").value;
+  const puertas = document.getElementById("puertas").value;
+  const kms = document.getElementById("kms").value;
+  const potencia = document.getElementById("potencia").value;
+  let tipo = document.getElementById("alquiler");
+  
+  if(tipo.checked){
+    tipo = 'Alquiler'
+  }
+  else{
+    tipo = 'Venta';
+  }
 
-    const respuesta = model.verify();
+  if( titulo && precio && descripcion && puertas && kms && potencia){
+    const nuevoRegistro = new Producto(titulo, precio, descripcion, puertas, kms, potencia, tipo);
+    console.log('Alta dada correctamente');
+    escribirStorage('Auto',objectToJson(nuevoRegistro));   
+    items.push(nuevoRegistro);
+    manejadorTabla();
+    actualizarFormulario()
+  }else{
+    alert("No se admiten campos vacios")
+  }
+}
 
-    if (respuesta.success) {
-      items.push(model);
-      const str = objectToJson(items);
-      
-      try {
-        await escribir(KEY_STORAGE, str);
 
-        actualizarFormulario();
-        rellenarTabla();
-      }
-      catch (error) {
-        alert(error);
-      }
-    }
-    else {
-      alert(respuesta.rta);
-    }
+function manejadorTabla(e) {
+  mostrarSpinner()
+  delay(2000).then(() => {
+    const tabla = createTable(items)
+    const contenedor = document.getElementById("container-table");
+    renderTabla(tabla, contenedor);
+    ocultarSpinner();
   });
+}
+
+/*
+Limpiamos la tabla y le escribimos todos los 
+*/
+function renderTabla(tabla, contenedor) {
+  while (contenedor.hasChildNodes()) {
+    contenedor.removeChild(contenedor.firstChild)
+  }
+  if (tabla) {
+    contenedor.appendChild(tabla);
+  }
+}
+
+
+function createTable(items) {
+  const tabla = document.createElement('table');
+  tabla.classList.add('my-table'); 
+
+  if (items.length > 0) {
+    tabla.appendChild(createThead(Object.keys(items[0]))); 
+    const tbody = createTbody(items); 
+    tabla.appendChild(tbody); 
+  } else {
+    const thead = document.createElement('thead');
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    th.textContent = 'No hay datos disponibles';
+
+    tr.appendChild(th);
+    thead.appendChild(tr);
+    tabla.appendChild(thead);
+  }
+  return tabla;
+}
+
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function DarAlta(th, tr, thead, tabla) {
+
+}
+
+
+function createTbody(items) {
+  const tbody = document.createElement("tbody");
+  items.forEach((element) => {
+    const tr = document.createElement("tr"); 
+    for (const key in element) {
+      if (key === 'id') {
+        tr.setAttribute("data-id", element[key]);
+      } else {
+        const td = document.createElement("td");
+        td.textContent = element[key];
+        tr.appendChild(td); 
+      }
+    }
+    tbody.appendChild(tr); 
+  });
+  return tbody;
+}
+
+
+
+function createThead() {
+  const thead = document.createElement("thead");
+  const tr = document.createElement("tr");
+
+  if (items.length > 0) {
+    const keys = Object.keys(items[0]); 
+    keys.forEach(key => {
+      if (key !== 'id') { 
+        const th = document.createElement("th");
+        th.textContent = key;
+        th.textContent = th.textContent.toUpperCase();
+        tr.appendChild(th);
+      }
+    });
+  } else { 
+    const th = document.createElement('th');
+    th.textContent = 'No hay datos disponibles';
+    tr.appendChild(th);
+  }
+  
+  thead.appendChild(tr);
+  return thead;
 }
 
 function actualizarFormulario() {
-  formulario.reset();
+  frm.reset();
 }
 
-function escuchandoBtnDeleteAll() {
-  const btn = document.getElementById("btn-delete-all");
+function manejadorModificar() {
+  const idSeleccionado = parseFloat(document.getElementsByName("id")[0].getAttribute("id"));
+  const AutoSeleccionadoIndex = items.findIndex(p => p.id === idSeleccionado);
 
-  btn.addEventListener("click", async (e) => {
+  if (AutoSeleccionadoIndex !== -1) {
+    const titulo = document.getElementById("titulo").value;
+    const precio = document.getElementById("precio").value;
+    const descripcion = document.getElementById("descripcion").value;
+    const puertas = document.getElementById("puertas").value;
+    const kms = document.getElementById("kms").value;
+    const potencia = document.getElementById("potencia").value;
+    const tipo = document.getElementById("alquiler").checked ? 'Alquiler' : 'Venta';
 
-    const rta = confirm('Desea eliminar todos los Items?');
+    items[AutoSeleccionadoIndex] = new Producto(titulo, precio, descripcion, puertas, kms, potencia, tipo);
+    
+    try {
+      escribirStorage("Auto", objectToJson(items));
 
-    if(rta) {
-      items.splice(0, items.length);
+      manejadorTabla();
+      actualizarFormulario();
 
-      try {
-        await limpiar(KEY_STORAGE);
-        rellenarTabla();
-      }
-      catch (error) {
-        alert(error);
-      }
+    } catch (error) {
+      console.error("Error al guardar los cambios:", error);
     }
-  });
+  } else {
+    console.log("No se encontró ningún auto con el ID especificado.");
+  }
 }

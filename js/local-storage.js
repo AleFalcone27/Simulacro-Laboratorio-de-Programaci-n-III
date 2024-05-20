@@ -1,16 +1,16 @@
 // local-storage.js
 
 // Función para leer del localStorage
-export function leer(clave) {
+export function leerStorage(clave) {
   return JSON.parse(localStorage.getItem(clave));
 }
 
 // Función para escribir en el localStorage
-export function escribir(clave, valor) {
+export function escribirStorage(clave, valor) {
   localStorage.setItem(clave, JSON.stringify(valor));
 }
 
-export function limpiar(clave) {
+export function limpiarStorage(clave) {
   localStorage.removeItem(clave);
 }
 

@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="./styles/form.css" />
   <link rel="icon" type="image/x-icon" href="assets/images/logo.svg" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
   <script src="./js/index.js" type="module" defer></script>
 
   <title>Simulador Primer Parcial</title>
@@ -34,91 +38,102 @@
 
   <div class="container-sections">
     <section>
-      <form action="" method="post" id="form-item">
-        <input type="number" name="id" id="id" hidden />
+      <form id="form-item" >
 
         <div class="form-group">
           <div class="titulo-container">
-            <label for="titulo">Titulo</label>
-            <input type="text" required name="titulo" id="titulo" placeholder="Titulo.." />
+            <label >Titulo
+              <input type="text" required name="titulo" id="titulo" placeholder="Titulo.." />
+            </label>
           </div>
 
           <div class="deescripcion-container">
-            <label for="titulo">Descripcion</label>
-            <input type="text" required name="Descripcion" id="titulo" placeholder="Descripción.." />
+            <label >Descripcion 
+              <input type="text" required name="descripcion" id="descripcion" placeholder="Descripción.." />
+            </label>
           </div>
 
           <div class="precio-container">
-            <label for="precio">Precio</label>
-            <input type="number" required name="precio" id="precio" placeholder="Precio.." />
+            <label >Precio
+              <input type="number" required name="precio" id="precio" placeholder="Precio.." />
+            </label>
           </div>
 
-
           <div class="puertas-container">
-            <label for="puertas">Puertas</label>
-            <input type="number" required name="puertas" id="puertas" placeholder="Puertas.." />
+            <label>Puertas 
+              <input type="number" required name="puertas" id="puertas" placeholder="Puertas.." />
+            </label>
           </div>
 
           <div class="kilometraje-container">
-            <label for="kilometraje">Kms</label>
-            <input type="number" required name="kilometraje" id="kilometraje" placeholder="Kilometraje.." />
+            <label >Kms
+              <input type="number" required name="kilometraje" id="kms" placeholder="Kilometraje.." />
+            </label>
           </div>
 
           <div class="potencia-container">
-            <label for="potencia">Potencia</label>
-            <input type="number" required name="potencia" id="potencia" placeholder="Potencia.." />
+            <label >Potencia
+              <input type="number" required name="potencia" id="potencia" placeholder="Potencia.." />
+            </label>
           </div>
 
           <div class="rdb-container">
-            <label for="alquiler">Alquiler</label>
-            <input type="radio" id="alquiler" name="opcion" value="alquiler">
-            <label for="compra">Venta</label>
-            <input type="radio" id="venta" name="opcion" value="venta">
+            <label >Alquiler
+              <input type="radio" id="alquiler" name="opcion" value="alquiler">
+            </label>
+            <label >Venta
+              <input type="radio" id="venta" name="opcion" value="venta">
+            </label>
           </div>
+
+          <input type="hidden" name="id"/>
 
           <div class="buttons-container">
-            <button type="submit" class="btn-guardar">Guardar</button>
-            <button type="button" id="btn-delete-all" class="btn-delete-all">Borrar Todo</button>
+            <button type="submit" id='btnGuardar'>Guardar</button>
+            <button type="button" id='btnModificar'>Modificar</button>
+            <button type="button" id="btnEliminar" >Eliminar</button>
+            <button type="button" id="btnEliminarTodo" >Borrar Todo</button>
           </div>
-
         </div>
-  </div>
-
-  
-
-
-  <div class="container-table flex">
-    <table id="table-items" class="table-items table-stripped flex">
-      <thead>
-        <tr class="flex">
-          <th>ID</th>
-          <th>Titulo</th>
-          <th>Precio</th>
-        </tr>
-      </thead>
-
-      <tbody class="tbodyx"></tbody>
-    </table>
-  </div>
+        
+        
+        
+        <div id="container-table">
+          <!-- <table id="table" class="table-items table-stripped flex">
+            <thead>
+              <tr class="flex">
+                
+              </tr>
+            </thead>
+            
+            <tbody class="tbody"></tbody> -->
+          </table>
+        </div>
+      </section>
+    </div>
+    
+    
+    
+    <div id="spinner" class="spinner">
+      <img src="./assets/images/logo.svg" alt="Spinner" class="spinner-img">
+    </div>
+    
   </section>
-  </div>
 
-  <div id="spinner" class="spinner">
-    <img src="./assets/images/logo.svg" alt="Spinner" class="spinner-img">
-  </div>
 
-  <footer class="flex">
-    <nav>
-      <ul class="flex">
-        <li><a href="#">Nosotros</a></li>
-        <li><a href="#">Anuncio</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Contacto</a></li>
-      </ul>
-    </nav>
 
-    <p>Todos los derechos reservados <date>2021</date> &copy;</p>
-  </footer>
-</body>
-
+    <footer class="flex">
+      <nav>
+        <ul class="flex">
+          <li><a href="#">Nosotros</a></li>
+          <li><a href="#">Anuncio</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </nav>
+      
+      <p>Todos los derechos reservados <date>2021</date> &copy;</p>
+    </footer>
+  </body>
+  
 </html>
