@@ -1,9 +1,7 @@
 ## Simulacro Laboratorio de Programacion III
 
 + *Alta* 👇
-
 + *Baja* ☝️ 
-
 + *Modificacion* ✊ 
 
 Utilizacion del LocalStogage para simular una BD 
