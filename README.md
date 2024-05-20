@@ -8,11 +8,11 @@ De productos utilizando el `LocalStogage` para simular una BD e implementando de
 
 <u>Intrucciones de uso:<u>
 
-1️⃣. Completa todos los campos del formulario y presiona el boton **Guardar**
+1️⃣ Completa todos los campos del formulario y presiona el boton **Guardar**
 
-2️⃣. Hace click sobre el registro en la tabla, modificá algúno de los campos desde el formulario y presioná **Modificar**.
+2️⃣ Hace click sobre el registro en la tabla, modificá algúno de los campos desde el formulario y presioná **Modificar**.
 
-3️⃣. Una vez seleccionado un registro, podes eliminarlo presionándo **Eliminar**.
+3️. Una vez seleccionado un registro, podes eliminarlo presionándo **Eliminar**.
 
-⚠️ *Tambien podes eliminar eliminar todos los registros presionando **BorrarTodo** *
+⚠️ *Tambien podes eliminar eliminar todos los registros presionando _BorrarTodo_*
 
