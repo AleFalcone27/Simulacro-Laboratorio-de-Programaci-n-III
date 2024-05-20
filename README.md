@@ -6,7 +6,7 @@
 + Baja ☝️ 
 + Modificacion ✊
 
-De productos utilizando el `LocalStogage` para simular una BD e implementando delay con `setTimeout` para simular el retraso natural de hacer una peticíon a una API.
+De productos utilizando el `LocalStogage` para simular una BD e implementando delay artificial con `setTimeout` para simular el retraso natural al realizar una peticíon a una API.
 
 ### Intrucciones de uso:
 
