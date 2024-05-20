@@ -1,20 +1,20 @@
-## Simulacro Laboratorio de Programacion III 💻
+## Simulacro Laboratorio de Programación III 💻
 
 ### Funcionalidades:
 
 + Alta 👇
 + Baja ☝️ 
-+ Modificacion ✊
++ Modificación ✊
 
-De productos utilizando el `LocalStogage` para simular una BD e implementando delay artificial con `setTimeout` para simular el retraso natural al realizar una peticíon a una API.
+De productos utilizando el `LocalStogage` para simular una BD e implementando delay artificial con `setTimeout` para simular el retraso natural al realizar una petición a una API.
 
-### Intrucciones de uso:
+### Instrucciones de uso:
 
-1️. Completa todos los campos del formulario y presiona el boton **Guardar** 💾
+1️. Completa todos los campos del formulario y presiona **Guardar** 💾
 
 2️. Hace click sobre el registro en la tabla, modificá algúno de los campos desde el formulario y presioná **Modificar** 🔧
 
-3️. Una vez seleccionado un registro, podes eliminarlo presionándo **Eliminar**  ⛔
+3️. Una vez seleccionado un registro, podes eliminarlo presionando **Eliminar**  ⛔
 
 4️. Tambien podes eliminar eliminar todos los registros presionando _BorrarTodo ⚠️ 
 
