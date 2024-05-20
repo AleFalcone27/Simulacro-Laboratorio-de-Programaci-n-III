@@ -14,7 +14,7 @@ De productos utilizando el `LocalStogage` para simular una BD e implementando de
 
 2️. Hace click sobre el registro en la tabla, modificá algúno de los campos desde el formulario y presioná **Modificar** 🔧
 
-3️⃣ Una vez seleccionado un registro, podes eliminarlo presionándo **Eliminar**  ⛔
+3️. Una vez seleccionado un registro, podes eliminarlo presionándo **Eliminar**  ⛔
 
-4️⃣ Tambien podes eliminar eliminar todos los registros presionando _BorrarTodo ⚠️ 
+4️. Tambien podes eliminar eliminar todos los registros presionando _BorrarTodo ⚠️ 
 
