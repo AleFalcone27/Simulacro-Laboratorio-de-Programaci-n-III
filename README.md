@@ -1,11 +1,10 @@
 ## Simulacro Laboratorio de Programacion III
 
--*Alta* 👇
++ *Alta* 👇
 
--*Baja* ☝️ 
++ *Baja* ☝️ 
 
--*Modificacion* ✊ 
-
++ *Modificacion* ✊ 
 
 Utilizacion del LocalStogage para simular una BD 
 Implementacion de delay con setTimeout para simular el retraso natural de hacer una peticíon a una API
