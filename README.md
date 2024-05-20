@@ -1,12 +1,14 @@
 ## Simulacro Laboratorio de Programacion III 💻
 
+### Funcionalidades:
+
 + Alta 👇
 + Baja ☝️ 
 + Modificacion ✊
 
 De productos utilizando el `LocalStogage` para simular una BD e implementando delay con `setTimeout` para simular el retraso natural de hacer una peticíon a una API.
 
-<u>Intrucciones de uso:</u>
+### Intrucciones de uso:
 
 1️⃣ Completa todos los campos del formulario y presiona el boton **Guardar** 💾
 
